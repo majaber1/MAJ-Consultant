@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammad Dassen — AWS Cloud Architect & Consultant</title>
+<link rel="stylesheet" href="site.css">
+<style>
+  .filter-bar {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; align-items: center;
+  }
+  .filter-btn {
+    font-size: 0.65rem; padding: 5px 14px; border-radius: 20px; font-weight: 600;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: rgba(192,132,252,0.1); border-color: rgba(192,132,252,0.3); color: var(--accent);
+  }
+  .filter-label { font-size: 0.62rem; color: var(--muted); margin-right: 4px; }
+  .cards-count  { font-size: 0.62rem; color: var(--muted); margin-left: auto; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR (rendered by JS) -->
+<div id="topbar-mount"></div>
+
+<!-- HERO -->
+<div class="page-hero" id="hero-mount">
+  <div class="hero-eyebrow">☁️ AWS Cloud Architect &amp; Strategic Consultant</div>
+  <h1 class="hero-title">Mohammad <span>Dassen</span></h1>
+  <p class="hero-subtitle" id="hero-role"></p>
+  <div class="chip-row" id="hero-chips"></div>
+  <div class="stats-row" id="hero-stats"></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="site-section">
+  <div class="section-eye">Knowledge Hub</div>
+  <h2 class="section-head">AWS Architecture Resources</h2>
+  <p class="section-sub">A curated collection of interactive tools, roadmaps, compliance checklists, and curriculum guides — built to support my journey from senior IT infrastructure specialist to AWS Strategic Consulting Architect, and to serve as practical tools for enterprise cloud advisory engagements.</p>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" id="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" data-filter="all" onclick="filterCards('all',this)">All</button>
+    <button class="filter-btn" data-filter="Learning"   onclick="filterCards('Learning',this)">Learning</button>
+    <button class="filter-btn" data-filter="Tools"      onclick="filterCards('Tools',this)">Tools</button>
+    <button class="filter-btn" data-filter="Compliance" onclick="filterCards('Compliance',this)">Compliance</button>
+    <button class="filter-btn" data-filter="live"  onclick="filterCards('live',this)">✅ Live</button>
+    <button class="filter-btn" data-filter="soon"  onclick="filterCards('soon',this)">🔜 Coming Soon</button>
+    <span class="cards-count" id="cards-count"></span>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards-grid" id="cards-mount"></div>
+</div>
+
+<hr class="site-divider">
+
+<!-- ABOUT -->
+<div class="site-section" id="about">
+  <div class="section-eye">About</div>
+  <h2 class="section-head">Background &amp; Expertise</h2>
+  <p class="section-sub">Senior IT Infrastructure Specialist with 20+ years of experience, transitioning toward cloud strategic advisory and consulting leadership in the Saudi market.</p>
+
+  <div class="clients-row" id="clients-mount"></div>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>🎯 Consulting Focus</h3>
+      <p>Specializing in cloud transformation advisory for Saudi government entities, universities, and enterprises. Active engagements at PNU and IMAMU covering data center migration, cloud adoption planning, and governance frameworks aligned with Vision 2030 and Digital Government Standard 5.13.2.</p>
+    </div>
+    <div class="about-card">
+      <h3>🏅 Skills &amp; Certifications</h3>
+      <ul class="skill-list">
+        <li><span class="skill-name">Cloud Architecture</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></li>
+        <li><span class="skill-name">IT Infrastructure (20+ yrs)</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:96%"></div></div></li>
+        <li><span class="skill-name">AWS Services</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></li>
+        <li><span class="skill-name">Executive Advisory</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:72%"></div></div></li>
+        <li><span class="skill-name">Cloud Governance &amp; FinOps</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div></li>
+        <li><span class="skill-name">NCA · PDPL · NDMO</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div></li>
+      </ul>
+    </div>
+    <div class="about-card" style="grid-column:1/-1;">
+      <h3>🗺️ AWS Mastery Journey</h3>
+      <div class="tl-wrap" id="timeline-mount"></div>
+    </div>
+  </div>
+</div>
+
+<hr class="site-divider">
+
+<!-- CONTACT -->
+<div class="site-section" id="contact">
+  <div class="section-eye">Connect</div>
+  <h2 class="section-head">Get in Touch</h2>
+  <p class="section-sub" style="margin-bottom:20px;">Open to cloud advisory engagements, consulting partnerships, and strategic conversations about cloud transformation in Saudi Arabia.</p>
+  <div class="contact-row" id="contact-mount"></div>
+</div>
+
+<div class="site-footer" id="footer-mount"></div>
+
+<!-- Scripts -->
+<script src="site-config.js"></script>
+<script>
+  const C = window.SITE_CONFIG;
+  let activeFilter = 'all';
+
+  /* ── TOPBAR ── */
+  const navLinks = [
+    { href:'index.html',              label:'Home',          active:true  },
+    { href:'aws-roadmap.html',        label:'AWS Roadmap',   active:false },
+    { href:'cloud-advisory.html',     label:'Cloud Advisory',active:false },
+    { href:'cloud-best-practices.html',label:'Best Practices',active:false},
+    { href:'nca-pdpl-compliance.html',label:'NCA & PDPL',    active:false },
+    { href:'tco-calculator.html',     label:'TCO Calculator',active:false },
+    { href:'#about',                  label:'About',         active:false },
+    { href:'#contact',                label:'Contact',       active:false },
+  ];
+  document.getElementById('topbar-mount').innerHTML = `
+    <nav class="site-topbar">
+      <div class="topbar-brand">☁️ MD Cloud</div>
+      <div class="topbar-nav">
+        ${navLinks.map(l=>`<a href="${l.href}" class="${l.active?'active':''}">${l.label}</a>`).join('')}
+      </div>
+      <a href="admin.html" class="topbar-admin">⚙️ Admin</a>
+    </nav>`;
+
+  /* ── HERO ── */
+  document.getElementById('hero-role').textContent = C.owner.role;
+  document.getElementById('hero-chips').innerHTML = C.owner.chips.map(c=>`
+    <span class="chip chip-${c.color||'default'}">${c.label}</span>`).join('');
+  document.getElementById('hero-stats').innerHTML = C.owner.stats.map(s=>`
+    <div class="stat-item">
+      <div class="stat-num">${s.num}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>`).join('');
+
+  /* ── CARDS ── */
+  function renderCards(filter) {
+    const cards = [...C.cards]
+      .sort((a,b) => a.order - b.order)
+      .filter(c => {
+        if (filter === 'all')  return true;
+        if (filter === 'live') return c.status === 'live';
+        if (filter === 'soon') return c.status === 'soon';
+        return c.topic === filter;
+      });
+
+    document.getElementById('cards-count').textContent = `${cards.filter(c=>c.status==='live').length} live · ${cards.filter(c=>c.status==='soon').length} coming soon`;
+
+    if (cards.length === 0) {
+      document.getElementById('cards-mount').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);font-size:0.8rem;">No resources in this category yet.</div>`;
+      return;
+    }
+
+    document.getElementById('cards-mount').innerHTML = cards.map(c => `
+      <a href="${c.status==='live'?c.url:'#'}"
+         class="card cc-${c.color} card-${c.status}"
+         ${c.status==='live'?'':'onclick="return false"'}>
+        ${c.isNew ? '<div class="card-new-badge">NEW</div>' : ''}
+        <div class="card-icon">${c.icon}</div>
+        <div class="card-type">${c.type}</div>
+        <div class="card-title">${c.title}</div>
+        <div class="card-desc">${c.desc}</div>
+        <div class="card-tags">${c.tags.map(t=>`<span class="card-tag">${t}</span>`).join('')}</div>
+        <div class="card-link">${c.status==='live'?'Open →':'Coming Soon'}</div>
+      </a>`).join('');
+  }
+
+  function filterCards(filter, btn) {
+    activeFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCards(filter);
+  }
+
+  renderCards('all');
+
+  /* ── CLIENTS ── */
+  document.getElementById('clients-mount').innerHTML = C.owner.clients.map(cl=>`
+    <div class="client-chip">${cl.name}<span>${cl.sub}</span></div>`).join('');
+
+  /* ── TIMELINE ── */
+  const tlColors = ['#f59e0b,#d97706','#3b82f6,#2563eb','#8b5cf6,#7c3aed','#10b981,#059669','#ef4444,#dc2626'];
+  document.getElementById('timeline-mount').innerHTML = C.roadmap.map((r,i)=>`
+    <div class="tl-item">
+      <div class="tl-dot" style="background:linear-gradient(135deg,${tlColors[i]||'#6b7a94,#475569'})">${r.dot}</div>
+      <div class="tl-body">
+        <div class="tl-phase">${r.phase}</div>
+        <div class="tl-title">${r.title}</div>
+        <div class="tl-cert">${r.cert}</div>
+      </div>
+    </div>`).join('');
+
+  /* ── CONTACT ── */
+  document.getElementById('contact-mount').innerHTML = `
+    <a href="${C.owner.linkedin}" target="_blank" class="btn-primary">🔗 Connect on LinkedIn</a>
+    <a href="mailto:${C.owner.email}" class="btn-ghost">✉️ Send Email</a>
+    <a href="https://aws.amazon.com/partners/" target="_blank" class="btn-ghost">☁️ AWS Partner Network</a>
+    <a href="admin.html" class="btn-ghost">⚙️ Manage Site</a>`;
+
+  /* ── FOOTER ── */
+  document.getElementById('footer-mount').innerHTML = `
+    <p>Built with purpose · <span>${C.owner.name}</span> · ${C.owner.title} · Riyadh, Saudi Arabia · Vision 2030 Aligned</p>
+    <p style="margin-top:6px;"><a href="admin.html">⚙️ Site Admin</a></p>`;
+</script>
+</body>
+</html>
