@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS Solutions Architect — Mastery Roadmap</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+  body { background: #0a0e1a; color: #e2e8f0; padding: 28px 20px; max-width: 900px; margin: auto; }
+
+  h1 { text-align: center; font-size: 1.5rem; color: #f8fafc; margin-bottom: 4px; letter-spacing: 1px; }
+  .subtitle { text-align: center; font-size: 0.75rem; color: #64748b; margin-bottom: 28px; letter-spacing: 2px; text-transform: uppercase; }
+
+  .domains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 28px; }
+  .domain { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 12px; padding: 14px 10px; text-align: center; }
+  .domain-icon { font-size: 1.5rem; margin-bottom: 6px; }
+  .domain-name { font-size: 0.62rem; color: #64748b; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+  .domain-subs { font-size: 0.68rem; color: #94a3b8; margin-top: 3px; }
+
+  .section-label { font-size: 0.65rem; color: #475569; text-transform: uppercase; letter-spacing: 2.5px; margin: 0 0 18px; text-align: center; }
+
+  .timeline { position: relative; padding-left: 10px; }
+  .timeline::before { content: ''; position: absolute; left: 34px; top: 10px; bottom: 10px; width: 2px;
+    background: linear-gradient(to bottom, #f59e0b, #3b82f6, #8b5cf6, #10b981, #ef4444); border-radius: 2px; }
+
+  .phase { display: flex; align-items: flex-start; margin-bottom: 22px; }
+  .phase-icon { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0; z-index: 1; border: 2px solid rgba(255,255,255,0.12); box-shadow: 0 0 20px rgba(0,0,0,0.4); }
+  .phase-content { margin-left: 18px; flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 16px 18px; }
+  .phase-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+  .phase-title { font-size: 0.97rem; font-weight: 700; }
+  .phase-badge { font-size: 0.63rem; padding: 3px 11px; border-radius: 20px; font-weight: 700; letter-spacing: 0.5px; }
+  .phase-desc { font-size: 0.74rem; color: #94a3b8; margin-bottom: 12px; line-height: 1.6; }
+  .skills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .skill { font-size: 0.66rem; padding: 3px 10px; border-radius: 6px; background: rgba(255,255,255,0.07);
+    color: #cbd5e1; border: 1px solid rgba(255,255,255,0.1); }
+  .cert-row { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; }
+  .cert-badge { padding: 4px 12px; border-radius: 8px; font-weight: 700; font-size: 0.68rem; }
+
+  /* Phase color themes */
+  .p1 .phase-icon { background: linear-gradient(135deg,#f59e0b,#d97706); }
+  .p1 .phase-title { color: #fbbf24; }
+  .p1 .phase-badge { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+  .p1 .cert-badge { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+
+  .p2 .phase-icon { background: linear-gradient(135deg,#3b82f6,#2563eb); }
+  .p2 .phase-title { color: #60a5fa; }
+  .p2 .phase-badge { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+  .p2 .cert-badge { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+
+  .p3 .phase-icon { background: linear-gradient(135deg,#8b5cf6,#7c3aed); }
+  .p3 .phase-title { color: #a78bfa; }
+  .p3 .phase-badge { background: rgba(139,92,246,0.12); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+  .p3 .cert-badge { background: rgba(139,92,246,0.12); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+
+  .p4 .phase-icon { background: linear-gradient(135deg,#10b981,#059669); }
+  .p4 .phase-title { color: #34d399; }
+  .p4 .phase-badge { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+  .p4 .cert-badge { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+
+  .p5 .phase-icon { background: linear-gradient(135deg,#ef4444,#dc2626); }
+  .p5 .phase-title { color: #f87171; }
+  .p5 .phase-badge { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+  .p5 .cert-badge { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+
+  .resources { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px; margin-top: 28px; }
+  .resources h3 { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+  .res-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .res-item { background: rgba(255,255,255,0.04); border-radius: 10px; padding: 12px; border: 1px solid rgba(255,255,255,0.07); }
+  .res-type { font-size: 0.6rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .res-name { font-size: 0.75rem; color: #e2e8f0; font-weight: 600; }
+  .res-desc { font-size: 0.67rem; color: #64748b; margin-top: 3px; }
+
+  .timeline-bar { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px; margin-top: 28px; }
+  .timeline-bar h3 { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+  .bar-track { display: flex; gap: 2px; height: 28px; border-radius: 8px; overflow: hidden; }
+  .bar-seg { display: flex; align-items: center; justify-content: center; font-size: 0.58rem; font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: 0.5px; }
+  .bar-labels { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .bar-label { display: flex; align-items: center; gap: 5px; font-size: 0.67rem; color: #94a3b8; }
+  .bar-dot { width: 10px; height: 10px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<h1>🏛️ AWS Solutions Architect — Mastery Roadmap</h1>
+<div class="subtitle">Structured Learning Pathway · 18-Month Professional Plan</div>
+
+<!-- Domain Grid -->
+<div class="section-label">Core Architecture Domains</div>
+<div class="domains">
+  <div class="domain"><div class="domain-icon">🌐</div><div class="domain-name">Networking</div><div class="domain-subs">VPC · Route53 · CloudFront</div></div>
+  <div class="domain"><div class="domain-icon">💻</div><div class="domain-name">Compute</div><div class="domain-subs">EC2 · Lambda · ECS · Fargate</div></div>
+  <div class="domain"><div class="domain-icon">🗄️</div><div class="domain-name">Storage</div><div class="domain-subs">S3 · EBS · EFS · Glacier</div></div>
+  <div class="domain"><div class="domain-icon">🔐</div><div class="domain-name">Security</div><div class="domain-subs">IAM · KMS · GuardDuty</div></div>
+  <div class="domain"><div class="domain-icon">📊</div><div class="domain-name">Databases</div><div class="domain-subs">RDS · DynamoDB · Aurora</div></div>
+  <div class="domain"><div class="domain-icon">⚙️</div><div class="domain-name">DevOps / IaC</div><div class="domain-subs">CDK · CloudFormation · CI/CD</div></div>
+</div>
+
+<!-- Timeline -->
+<div class="section-label">5-Phase Mastery Pathway</div>
+<div class="timeline">
+
+  <div class="phase p1">
+    <div class="phase-icon">🌱</div>
+    <div class="phase-content">
+      <div class="phase-header">
+        <div class="phase-title">Phase 1 — Cloud Foundations</div>
+        <div class="phase-badge">Months 1–2</div>
+      </div>
+      <div class="phase-desc">Build a rock-solid mental model of AWS global infrastructure, core services, billing models, and the Shared Responsibility Model. This phase eliminates confusion and establishes the conceptual scaffolding for everything ahead.</div>
+      <div class="skills">
+        <span class="skill">AWS Regions & AZs</span><span class="skill">IAM Basics</span>
+        <span class="skill">EC2 Fundamentals</span><span class="skill">S3 Storage</span>
+        <span class="skill">VPC Fundamentals</span><span class="skill">AWS CLI / Console</span>
+        <span class="skill">Pricing & TCO</span><span class="skill">Shared Responsibility Model</span>
+      </div>
+      <div class="cert-row">🎯 <span class="cert-badge">AWS Cloud Practitioner (CLF-C02)</span></div>
+    </div>
+  </div>
+
+  <div class="phase p2">
+    <div class="phase-icon">🔧</div>
+    <div class="phase-content">
+      <div class="phase-header">
+        <div class="phase-title">Phase 2 — Associate Architecture</div>
+        <div class="phase-badge">Months 3–5</div>
+      </div>
+      <div class="phase-desc">Master production-grade services and their interconnections. Learn design patterns for high availability, fault tolerance, scalability, and cost optimization. This is the foundation of your architectural thinking.</div>
+      <div class="skills">
+        <span class="skill">VPC Advanced (Peering, Transit GW)</span>
+        <span class="skill">Auto Scaling & ELB</span><span class="skill">RDS & DynamoDB</span>
+        <span class="skill">CloudFront & Route53</span><span class="skill">SQS · SNS · EventBridge</span>
+        <span class="skill">CloudWatch & CloudTrail</span><span class="skill">Lambda & API Gateway</span>
+        <span class="skill">Elastic Beanstalk · ECS</span>
+      </div>
+      <div class="cert-row">🎯 <span class="cert-badge">AWS Solutions Architect Associate (SAA-C03)</span></div>
+    </div>
+  </div>
+
+  <div class="phase p3">
+    <div class="phase-icon">🏗️</div>
+    <div class="phase-content">
+      <div class="phase-header">
+        <div class="phase-title">Phase 3 — Professional Architecture</div>
+        <div class="phase-badge">Months 6–10</div>
+      </div>
+      <div class="phase-desc">Elevate to enterprise-grade design. This phase focuses on multi-account governance, complex hybrid architectures, migrations, FinOps, and the AWS Well-Architected Framework — the level expected of a senior consultant.</div>
+      <div class="skills">
+        <span class="skill">AWS Organizations & Control Tower</span>
+        <span class="skill">AWS Landing Zone</span><span class="skill">Direct Connect & VPN</span>
+        <span class="skill">CloudFormation / CDK (IaC)</span>
+        <span class="skill">AWS Migration Hub & 7Rs</span>
+        <span class="skill">FinOps & Cost Governance</span>
+        <span class="skill">WAF · Shield · GuardDuty</span>
+        <span class="skill">DR Strategies (RTO/RPO)</span>
+        <span class="skill">Well-Architected Framework</span>
+      </div>
+      <div class="cert-row">🎯 <span class="cert-badge">AWS Solutions Architect Professional (SAP-C02)</span></div>
+    </div>
+  </div>
+
+  <div class="phase p4">
+    <div class="phase-icon">⚡</div>
+    <div class="phase-content">
+      <div class="phase-header">
+        <div class="phase-title">Phase 4 — Specialization Tracks</div>
+        <div class="phase-badge">Months 11–14</div>
+      </div>
+      <div class="phase-desc">Choose 1–2 specialization tracks that align with your strategic advisory positioning. Given your 20+ years of infrastructure expertise, the Security and AI/ML tracks command the highest consulting value in the Saudi market.</div>
+      <div class="skills">
+        <span class="skill">🤖 AI/ML · SageMaker</span>
+        <span class="skill">🔒 Security Specialty</span>
+        <span class="skill">📦 Data Analytics</span>
+        <span class="skill">🌐 Advanced Networking</span>
+        <span class="skill">🛠️ DevOps Professional</span>
+        <span class="skill">☁️ Database Specialty</span>
+      </div>
+      <div class="cert-row">🎯 <span class="cert-badge">1–2 AWS Specialty Certifications</span></div>
+    </div>
+  </div>
+
+  <div class="phase p5">
+    <div class="phase-icon">🏆</div>
+    <div class="phase-content">
+      <div class="phase-header">
+        <div class="phase-title">Phase 5 — Strategic Consulting Mastery</div>
+        <div class="phase-badge">Months 15–18</div>
+      </div>
+      <div class="phase-desc">Transition from technical architect to trusted strategic advisor. This phase is about governance leadership, executive communication, and building the advisory identity that distinguishes you from a technician.</div>
+      <div class="skills">
+        <span class="skill">AWS Well-Architected Reviews</span>
+        <span class="skill">Cloud Governance Frameworks</span>
+        <span class="skill">Executive Briefing & Proposals</span>
+        <span class="skill">TCO & Business Case Design</span>
+        <span class="skill">Cloud Center of Excellence (CCoE)</span>
+        <span class="skill">Risk & Compliance Advisory</span>
+        <span class="skill">AWS Partner Network (APN)</span>
+        <span class="skill">Vision 2030 Cloud Alignment</span>
+      </div>
+      <div class="cert-row">🎯 <span class="cert-badge">APN Consulting Partner · AWS Ambassador Track</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Timeline Bar -->
+<div class="timeline-bar">
+  <h3>18-Month Visual Timeline</h3>
+  <div class="bar-track">
+    <div class="bar-seg" style="width:11%; background: linear-gradient(135deg,#f59e0b,#d97706);">Ph1</div>
+    <div class="bar-seg" style="width:17%; background: linear-gradient(135deg,#3b82f6,#2563eb);">Phase 2</div>
+    <div class="bar-seg" style="width:28%; background: linear-gradient(135deg,#8b5cf6,#7c3aed);">Phase 3 — Professional</div>
+    <div class="bar-seg" style="width:22%; background: linear-gradient(135deg,#10b981,#059669);">Phase 4 — Specialty</div>
+    <div class="bar-seg" style="width:22%; background: linear-gradient(135deg,#ef4444,#dc2626);">Phase 5 — Consulting</div>
+  </div>
+  <div class="bar-labels">
+    <div class="bar-label"><div class="bar-dot" style="background:#f59e0b;"></div>Foundations (M1–2)</div>
+    <div class="bar-label"><div class="bar-dot" style="background:#3b82f6;"></div>Associate (M3–5)</div>
+    <div class="bar-label"><div class="bar-dot" style="background:#8b5cf6;"></div>Professional (M6–10)</div>
+    <div class="bar-label"><div class="bar-dot" style="background:#10b981;"></div>Specialty (M11–14)</div>
+    <div class="bar-label"><div class="bar-dot" style="background:#ef4444;"></div>Advisory (M15–18)</div>
+  </div>
+</div>
+
+<!-- Resources -->
+<div class="resources">
+  <h3>Recommended Learning Resources</h3>
+  <div class="res-grid">
+    <div class="res-item">
+      <div class="res-type">Platform</div>
+      <div class="res-name">AWS Skill Builder</div>
+      <div class="res-desc">Official AWS learning platform — free & subscription tiers with hands-on labs</div>
+    </div>
+    <div class="res-item">
+      <div class="res-type">Course Provider</div>
+      <div class="res-name">Adrian Cantrill (learn.cantrill.io)</div>
+      <div class="res-desc">Best-in-class SAA/SAP courses with deep architectural depth</div>
+    </div>
+    <div class="res-item">
+      <div class="res-type">Practice Exams</div>
+      <div class="res-name">Tutorials Dojo (Jon Bonso)</div>
+      <div class="res-desc">Highest-quality practice exams — essential for certification success</div>
+    </div>
+    <div class="res-item">
+      <div class="res-type">Hands-on Labs</div>
+      <div class="res-name">A Cloud Guru / Whizlabs</div>
+      <div class="res-desc">Sandbox environments to practice without incurring AWS costs</div>
+    </div>
+    <div class="res-item">
+      <div class="res-type">Reference Framework</div>
+      <div class="res-name">AWS Well-Architected Tool</div>
+      <div class="res-desc">Free AWS service — run WAF reviews to build consulting deliverables</div>
+    </div>
+    <div class="res-item">
+      <div class="res-type">Community</div>
+      <div class="res-name">AWS re:Post & Reddit r/AWSCertifications</div>
+      <div class="res-desc">Peer community for problem-solving and exam guidance</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
