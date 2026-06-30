@@ -1,6 +1,6 @@
 /**
  * ─────────────────────────────────────────────────────────────
- *  MOHAMMAD DASSEN — CLOUD ARCHITECT SITE CONFIG
+ *  Mohammed Jaber — CLOUD ARCHITECT SITE CONFIG
  *  Single source of truth for all content cards & navigation.
  *  Edit via admin.html — changes persist in localStorage.
  * ─────────────────────────────────────────────────────────────
@@ -9,7 +9,7 @@
 window.SITE_CONFIG = {
 
   owner: {
-    name:     "Mohammad Dassen",
+    name:     "Mohammed Jaber",
     title:    "AWS Cloud Architect & Strategic Consultant",
     role:     "Senior IT Infrastructure Specialist · Cloud Advisory · Riyadh, Saudi Arabia",
     location: "Riyadh, KSA",
