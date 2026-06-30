@@ -236,6 +236,51 @@ button { font-family: inherit; }
 }
 .topic-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
+/* ── BACK TO HOME BAR (for tool pages) ── */
+.back-home-bar {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 0 20px; position: sticky; top: 0; z-index: 200;
+  display: flex; align-items: center; height: 48px;
+}
+.back-home-link {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.72rem; font-weight: 600; color: var(--muted);
+  transition: color 0.2s; padding: 8px 0;
+}
+.back-home-link:hover { color: var(--accent); }
+.back-home-link .arrow { font-size: 0.9rem; transition: transform 0.2s; }
+.back-home-link:hover .arrow { transform: translateX(-3px); }
+.back-home-sitename { margin-left: auto; font-size: 0.65rem; color: var(--muted); opacity: 0.6; }
+
+/* ── ADMIN GATE ── */
+.gate-overlay {
+  position: fixed; inset: 0; background: var(--bg); z-index: 1000;
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.gate-card {
+  background: var(--surface); border: 1px solid var(--border2); border-radius: 18px;
+  padding: 36px 32px; max-width: 380px; width: 100%; text-align: center;
+}
+.gate-icon { font-size: 2rem; margin-bottom: 14px; }
+.gate-title { font-family: Georgia, serif; font-size: 1.2rem; color: var(--text); margin-bottom: 8px; }
+.gate-sub { font-size: 0.72rem; color: var(--muted); margin-bottom: 22px; line-height: 1.6; }
+.gate-input {
+  width: 100%; background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 10px; padding: 12px 14px; color: var(--text); font-size: 0.85rem;
+  text-align: center; letter-spacing: 2px; margin-bottom: 14px; outline: none;
+  transition: border 0.2s; font-family: inherit;
+}
+.gate-input:focus { border-color: var(--accent); }
+.gate-btn {
+  width: 100%; padding: 11px; border-radius: 10px; font-size: 0.76rem; font-weight: 700;
+  background: linear-gradient(135deg, var(--accent2), var(--accent)); color: #0a0e1a;
+  border: none; cursor: pointer; transition: opacity 0.2s;
+}
+.gate-btn:hover { opacity: 0.9; }
+.gate-error { font-size: 0.68rem; color: var(--red); margin-top: 10px; min-height: 16px; }
+.gate-back { display: block; margin-top: 18px; font-size: 0.68rem; color: var(--muted); }
+.gate-back:hover { color: var(--accent); }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 700px) {
   .hero-title { font-size: 1.7rem; }
