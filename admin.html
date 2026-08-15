@@ -116,7 +116,7 @@
 </head>
 <body>
 
-<!-- ═══════════ ACCESS GATE ═══════════ -->
+<!-- ACCESS GATE -->
 <div class="gate-overlay" id="gate-overlay">
   <div class="gate-card">
     <div class="gate-icon">🔒</div>
@@ -166,15 +166,12 @@
   <!-- MAIN -->
   <div class="admin-main">
 
-    <!-- ══════ DASHBOARD ══════ -->
+    <!-- DASHBOARD -->
     <div class="admin-panel active" id="panel-dashboard">
       <div class="panel-title">Dashboard</div>
       <div class="panel-sub">Overview of your cloud portfolio site.</div>
-
       <div class="stats-grid" id="dash-stats"></div>
-
       <div class="alert-box alert-info">💡 <span>Use the <strong>Admin Panel</strong> to add new cards, update content, and manage your site — no code required. All changes save instantly to your browser and persist across sessions.</span></div>
-
       <div class="form-section">
         <div class="form-section-title">📋 Quick Reference — How to Add a New Resource</div>
         <ol style="font-size:0.72rem;color:var(--muted);line-height:2;padding-left:20px;">
@@ -185,23 +182,20 @@
           <li>The card appears instantly on your home page</li>
         </ol>
       </div>
-
       <div class="form-section">
         <div class="form-section-title">🃏 Current Cards</div>
         <div id="dash-cards-list"></div>
       </div>
     </div>
 
-    <!-- ══════ MANAGE CARDS ══════ -->
+    <!-- MANAGE CARDS -->
     <div class="admin-panel" id="panel-cards">
       <div class="panel-title">Manage Cards</div>
       <div class="panel-sub">Edit, reorder, delete, or toggle visibility of resource cards. Changes apply immediately to the home page.</div>
-
       <div class="actions-row">
         <button class="btn-primary" onclick="showPanel('add-card')">➕ Add New Card</button>
         <button class="btn-ghost" onclick="renderCardsTable()">🔄 Refresh</button>
       </div>
-
       <div class="form-section" style="padding:0;overflow:hidden;">
         <table class="cards-table" id="cards-table">
           <thead>
@@ -215,13 +209,11 @@
       </div>
     </div>
 
-    <!-- ══════ ADD CARD ══════ -->
+    <!-- ADD CARD -->
     <div class="admin-panel" id="panel-add-card">
       <div class="panel-title" id="add-card-title">➕ Add New Card</div>
       <div class="panel-sub" id="add-card-sub">Fill in the details below to add a new resource card to your home page.</div>
-
       <input type="hidden" id="edit-card-id">
-
       <div class="form-section">
         <div class="form-section-title">🖼️ Basic Information</div>
         <div class="form-grid">
@@ -243,7 +235,6 @@
           </div>
         </div>
       </div>
-
       <div class="form-section">
         <div class="form-section-title">🎨 Appearance & Behavior</div>
         <div class="form-grid">
@@ -296,7 +287,6 @@
           </div>
         </div>
       </div>
-
       <!-- LIVE PREVIEW -->
       <div class="preview-wrap">
         <div class="preview-label">Live Preview</div>
@@ -312,7 +302,6 @@
           </div>
         </div>
       </div>
-
       <div class="actions-row">
         <button class="btn-primary" onclick="saveCard()">💾 Save Card</button>
         <button class="btn-ghost"   onclick="clearCardForm()">✕ Clear Form</button>
@@ -320,11 +309,10 @@
       </div>
     </div>
 
-    <!-- ══════ PROFILE ══════ -->
+    <!-- PROFILE -->
     <div class="admin-panel" id="panel-profile">
       <div class="panel-title">Profile & Info</div>
       <div class="panel-sub">Update your name, title, role, and contact information. Changes reflect immediately on the home page.</div>
-
       <div class="form-section">
         <div class="form-section-title">👤 Personal Information</div>
         <div class="form-grid">
@@ -350,23 +338,20 @@
           </div>
         </div>
       </div>
-
       <div class="form-section">
         <div class="form-section-title">🏢 Active Client Engagements</div>
         <div id="clients-editor"></div>
         <button class="btn-ghost" style="margin-top:10px;font-size:0.68rem;" onclick="addClientRow()">➕ Add Client</button>
       </div>
-
       <div class="actions-row">
         <button class="btn-primary" onclick="saveProfile()">💾 Save Profile</button>
       </div>
     </div>
 
-    <!-- ══════ STATS ══════ -->
+    <!-- STATS -->
     <div class="admin-panel" id="panel-stats">
       <div class="panel-title">Stats & Hero Chips</div>
       <div class="panel-sub">Edit the statistics and chips displayed in the hero section of your home page.</div>
-
       <div class="form-section">
         <div class="form-section-title">📊 Hero Statistics (4 items)</div>
         <div id="stats-editor"></div>
@@ -381,7 +366,7 @@
       </div>
     </div>
 
-    <!-- ══════ NAV ══════ -->
+    <!-- NAV -->
     <div class="admin-panel" id="panel-nav">
       <div class="panel-title">Navigation Links</div>
       <div class="panel-sub">The topbar navigation is automatically generated from your live cards. Add custom links below for additional pages or external resources.</div>
@@ -392,11 +377,10 @@
       </div>
     </div>
 
-    <!-- ══════ EXPORT ══════ -->
+    <!-- EXPORT -->
     <div class="admin-panel" id="panel-export">
       <div class="panel-title">Export / Import Config</div>
       <div class="panel-sub">Export your current site configuration as JSON to back it up or transfer to another device. Import a previously exported config to restore.</div>
-
       <div class="form-section">
         <div class="form-section-title">📤 Export Configuration</div>
         <p style="font-size:0.72rem;color:var(--muted);margin-bottom:14px;">Copy the JSON below and save it somewhere safe. This includes all your cards and profile settings.</p>
@@ -406,7 +390,6 @@
           <button class="btn-ghost" onclick="copyExport()">📄 Copy to Clipboard</button>
         </div>
       </div>
-
       <div class="form-section">
         <div class="form-section-title">📥 Import Configuration</div>
         <p style="font-size:0.72rem;color:var(--muted);margin-bottom:14px;">Paste a previously exported config JSON here and click Import.</p>
@@ -417,7 +400,7 @@
       </div>
     </div>
 
-    <!-- ══════ RESET ══════ -->
+    <!-- RESET -->
     <div class="admin-panel" id="panel-reset">
       <div class="panel-title">Reset to Default</div>
       <div class="panel-sub">Clear all admin customizations and restore the default configuration from site-config.js.</div>
@@ -444,10 +427,8 @@
 </div><!-- /admin-content -->
 
 <script src="site-config.js"></script>
+<script src="admin-auth.js"></script>
 <script>
-  /* ──────────────────────────────────
-     HELPERS
-  ────────────────────────────────── */
   const C = window.SITE_CONFIG;
 
   function save(key, val) {
@@ -463,7 +444,6 @@
     document.getElementById('panel-'+id).classList.add('active');
     const items = document.querySelectorAll('.asb-item');
     items.forEach(i=>{ if(i.textContent.toLowerCase().includes(id.replace('-',' '))) i.classList.add('active'); });
-    // Special cases
     if (id==='add-card') { clearCardForm(); renderPreview(); }
     if (id==='cards')    renderCardsTable();
     if (id==='dashboard')renderDashboard();
@@ -478,9 +458,6 @@
     setTimeout(()=>ind.classList.remove('show'), 1800);
   }
 
-  /* ──────────────────────────────────
-     DASHBOARD
-  ────────────────────────────────── */
   function renderDashboard() {
     const live = C.cards.filter(c=>c.status==='live').length;
     const soon = C.cards.filter(c=>c.status==='soon').length;
@@ -505,9 +482,6 @@
       </table>`;
   }
 
-  /* ──────────────────────────────────
-     CARDS TABLE
-  ────────────────────────────────── */
   const COLOR_HEX = { purple:'#c084fc', gold:'#f59e0b', green:'#34d399', blue:'#60a5fa', red:'#f87171', orange:'#fb923c', teal:'#2dd4bf' };
 
   function renderCardsTable() {
@@ -579,9 +553,6 @@
     renderPreview();
   }
 
-  /* ──────────────────────────────────
-     ADD / SAVE CARD
-  ────────────────────────────────── */
   function saveCard() {
     const title = document.getElementById('f-title').value.trim();
     if (!title) { alert('Please enter a card title.'); return; }
@@ -591,7 +562,6 @@
     const tagsRaw = document.getElementById('f-tags').value;
     const tags = tagsRaw.split(',').map(t=>t.trim()).filter(Boolean).slice(0,5);
     const isNew = document.getElementById('tog-new').classList.contains('on');
-
     const card = {
       id, title,
       desc:   document.getElementById('f-desc').value.trim(),
@@ -600,12 +570,10 @@
       status: document.getElementById('f-status').value,
       url,
       type:   document.getElementById('f-type').value.trim() || 'Resource',
-      tags,
-      isNew,
+      tags, isNew,
       topic:  document.getElementById('f-topic').value,
       order:  parseInt(document.getElementById('f-order').value) || 10
     };
-
     if (editId) {
       const idx = C.cards.findIndex(c=>c.id===editId);
       if (idx >= 0) C.cards[idx] = card;
@@ -632,9 +600,6 @@
     renderPreview();
   }
 
-  /* ──────────────────────────────────
-     LIVE PREVIEW
-  ────────────────────────────────── */
   function renderPreview() {
     const icon  = document.getElementById('f-icon')?.value  || '🏗️';
     const type  = document.getElementById('f-type')?.value  || 'Resource Type';
@@ -645,7 +610,6 @@
     const tagsStr= document.getElementById('f-tags')?.value || '';
     const tags  = tagsStr.split(',').map(t=>t.trim()).filter(Boolean).slice(0,5);
     const isNew = document.getElementById('tog-new')?.classList.contains('on');
-
     const preview = document.getElementById('card-preview');
     if (!preview) return;
     preview.className = `card cc-${color} card-live`;
@@ -660,7 +624,6 @@
     document.getElementById('prev-type').style.color   = COLOR_HEX[color]||'#c084fc';
   }
 
-  // Attach live preview listeners
   setTimeout(()=>{
     ['f-icon','f-type','f-title','f-desc','f-color','f-status','f-tags','f-order'].forEach(id=>{
       const el = document.getElementById(id);
@@ -670,16 +633,12 @@
     document.getElementById('tog-new')?.addEventListener('click', ()=>setTimeout(renderPreview,50));
   }, 100);
 
-  /* ──────────────────────────────────
-     PROFILE
-  ────────────────────────────────── */
   function renderProfileForm() {
     document.getElementById('p-name').value    = C.owner.name;
     document.getElementById('p-title').value   = C.owner.title;
     document.getElementById('p-role').value    = C.owner.role;
     document.getElementById('p-linkedin').value= C.owner.linkedin;
     document.getElementById('p-email').value   = C.owner.email;
-
     document.getElementById('clients-editor').innerHTML = C.owner.clients.map((cl,i)=>`
       <div style="display:grid;grid-template-columns:1fr 1fr 40px;gap:8px;margin-bottom:8px;" id="client-row-${i}">
         <input class="form-input" id="cl-name-${i}" value="${cl.name}" placeholder="Client name">
@@ -688,15 +647,8 @@
       </div>`).join('');
   }
 
-  function addClientRow() {
-    C.owner.clients.push({ name:'', sub:'' });
-    renderProfileForm();
-  }
-
-  function removeClientRow(i) {
-    C.owner.clients.splice(i,1);
-    renderProfileForm();
-  }
+  function addClientRow() { C.owner.clients.push({ name:'', sub:'' }); renderProfileForm(); }
+  function removeClientRow(i) { C.owner.clients.splice(i,1); renderProfileForm(); }
 
   function saveProfile() {
     C.owner.name     = document.getElementById('p-name').value.trim();
@@ -704,7 +656,6 @@
     C.owner.role     = document.getElementById('p-role').value.trim();
     C.owner.linkedin = document.getElementById('p-linkedin').value.trim();
     C.owner.email    = document.getElementById('p-email').value.trim();
-
     const rows = document.querySelectorAll('[id^="client-row-"]');
     C.owner.clients = [];
     rows.forEach((_, i) => {
@@ -717,16 +668,12 @@
     alert('✅ Profile saved!');
   }
 
-  /* ──────────────────────────────────
-     STATS & CHIPS
-  ────────────────────────────────── */
   function renderStatsForm() {
     document.getElementById('stats-editor').innerHTML = C.owner.stats.map((s,i)=>`
       <div style="display:grid;grid-template-columns:100px 1fr;gap:8px;margin-bottom:8px;">
         <input class="form-input" id="st-num-${i}" value="${s.num}"   placeholder="20+">
         <input class="form-input" id="st-lbl-${i}" value="${s.label}" placeholder="Years Experience">
       </div>`).join('');
-
     document.getElementById('chips-editor').innerHTML = C.owner.chips.map((c,i)=>`
       <div style="display:grid;grid-template-columns:1fr 120px 40px;gap:8px;margin-bottom:8px;" id="chip-row-${i}">
         <input class="form-input" id="ch-lbl-${i}"   value="${c.label}"   placeholder="🏅 AWS Certified">
@@ -737,15 +684,8 @@
       </div>`).join('');
   }
 
-  function addChipRow() {
-    C.owner.chips.push({ label:'New Chip', color:'default' });
-    renderStatsForm();
-  }
-
-  function removeChip(i) {
-    C.owner.chips.splice(i,1);
-    renderStatsForm();
-  }
+  function addChipRow() { C.owner.chips.push({ label:'New Chip', color:'default' }); renderStatsForm(); }
+  function removeChip(i) { C.owner.chips.splice(i,1); renderStatsForm(); }
 
   function saveStats() {
     C.owner.stats = C.owner.stats.map((s,i)=>({
@@ -764,9 +704,6 @@
     alert('✅ Stats & Chips saved!');
   }
 
-  /* ──────────────────────────────────
-     NAV PREVIEW
-  ────────────────────────────────── */
   function renderNavPreview() {
     const live = C.cards.filter(c=>c.status==='live');
     document.getElementById('nav-preview').innerHTML = [
@@ -777,9 +714,6 @@
     ].map(l=>`<div class="filter-btn">${l.label}</div>`).join('');
   }
 
-  /* ──────────────────────────────────
-     EXPORT / IMPORT
-  ────────────────────────────────── */
   function exportConfig() {
     const data = { cards: C.cards, owner: C.owner, exported: new Date().toISOString() };
     document.getElementById('export-box').value = JSON.stringify(data, null, 2);
@@ -798,9 +732,6 @@
     } catch(e) { alert('❌ Invalid JSON. Please check the format and try again.'); }
   }
 
-  /* ──────────────────────────────────
-     RESET
-  ────────────────────────────────── */
   function resetAll() {
     if (!confirm('Are you sure? This will erase all admin changes.')) return;
     localStorage.removeItem('md_site_cards');
@@ -811,43 +742,6 @@
 
   function closeModal() { document.getElementById('modal').classList.remove('open'); }
 
-  /* ──────────────────────────────────
-     ACCESS GATE
-     NOTE: This is a lightweight deterrent only — NOT real security.
-     GitHub Pages is static hosting; anyone can view source and bypass
-     client-side checks. Use this to keep casual visitors out, not to
-     protect truly sensitive data.
-  ────────────────────────────────── */
-  const ADMIN_PASSPHRASE = "cloud2026"; // ← CHANGE THIS to your own passphrase
-  const SESSION_KEY = "md_admin_unlocked";
-
-  function tryUnlock() {
-    const input = document.getElementById('gate-pass').value;
-    const err   = document.getElementById('gate-error');
-    if (input === ADMIN_PASSPHRASE) {
-      sessionStorage.setItem(SESSION_KEY, '1');
-      unlockUI();
-    } else {
-      err.textContent = '❌ Incorrect passphrase. Please try again.';
-      document.getElementById('gate-pass').value = '';
-      document.getElementById('gate-pass').focus();
-    }
-  }
-
-  function unlockUI() {
-    document.getElementById('gate-overlay').style.display = 'none';
-    document.getElementById('admin-content').style.display = 'block';
-    renderDashboard();
-  }
-
-  function lockAdmin() {
-    sessionStorage.removeItem(SESSION_KEY);
-    location.reload();
-  }
-
-  /* ──────────────────────────────────
-     INIT
-  ────────────────────────────────── */
   if (sessionStorage.getItem(SESSION_KEY) === '1') {
     unlockUI();
   } else {
