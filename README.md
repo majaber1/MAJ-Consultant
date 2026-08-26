@@ -1,46 +1,60 @@
-# MAJ Consultant — Mohammed Jaber
+# MAJ Consultant
 
-> **AWS Cloud Architect & Strategic Consultant** | Riyadh, Saudi Arabia
+Static cloud-consulting portfolio and knowledge hub hosted on GitHub Pages.
 
-[![GitHub Pages](https://img.shields.io/badge/Live%20Site-Visit-brightgreen)](https://majaber1.github.io/MAJ-Consultant/)
+## Operational source of truth
 
----
+Last verified against current `main`: **2026-08-26**.
 
-## About
+| Layer | Current verified state |
+| --- | --- |
+| Runtime | Static HTML/CSS/JavaScript on GitHub Pages |
+| Live site | `https://majaber1.github.io/MAJ-Consultant/` |
+| Backend | **Not present** |
+| Database | **Not required/currently absent** |
+| Admin | Local browser editor only; not a server/admin account system |
+| Admin persistence | `localStorage` on the current browser only |
+| Static health | `/health.json` |
+| Architecture | `docs/ARCHITECTURE.md` |
 
-This repository hosts the personal portfolio and knowledge hub of **Mohammed Jaber**, a Senior IT Infrastructure Specialist with 20+ years of experience transitioning into AWS Strategic Cloud Consulting.
+Machine-readable portfolio metadata is stored in `.jaber-dashboard.json` for Jaber Dashboard synchronization.
 
-## What's Inside
+## Important admin boundary
 
-| Page | Description |
-|------|-------------|
-| `index.html` | Main portfolio homepage with resource cards |
-| `aws-roadmap.html` | 18-Month AWS Solutions Architect Mastery Roadmap |
-| `cloud-advisory.html` | Cloud Advisory & Strategic Consulting Framework |
-| `cloud-best-practices.html` | AWS Cloud Best Practices Guide |
-| `nca-pdpl-compliance.html` | NCA & PDPL Cloud Compliance Checklist (Saudi Arabia) |
-| `tco-calculator.html` | Cloud TCO Calculator — AWS vs On-Premises |
-| `admin.html` | Admin panel for content management |
+`admin.html` + `admin-auth.js` are a convenience editor for one browser. The passphrase check runs entirely in client-side JavaScript and changes are persisted in `localStorage`; it does **not** protect server resources, create an authenticated management plane, or update GitHub content for other visitors.
 
-## Live Site
+Therefore Jaber Dashboard must not count the Admin page as production authentication, backend readiness or durable CMS capability.
 
-Visit the live site: **https://majaber1.github.io/MAJ-Consultant/**
+## Main content
 
-## Skills & Focus Areas
+- portfolio homepage
+- AWS/cloud learning roadmap
+- cloud advisory framework
+- cloud best-practices guide
+- Saudi cloud/compliance reference/checklist
+- TCO calculator
+- professional credentials and supporting documents
 
-- ☁️ AWS Cloud Architecture
-- 🏛️ Strategic IT Consulting
-- 🔐 NCA & PDPL Compliance (Saudi Arabia)
-- 📊 Cloud TCO & ROI Analysis
-- 🚀 Vision 2030 Cloud Adoption
-- 🎓 AWS Certification Roadmap
+## Health model
 
-## Notable Clients
+```text
+GET https://majaber1.github.io/MAJ-Consultant/health.json
+```
 
-- Princess Nourah bint Abdulrahman University — Data Center Migration & Cloud Advisory
-- Imam Mohammad Ibn Saud Islamic University — Cloud Adoption Plan & Governance 2026–2027
-- Edarat Cloud — Oracle RAC DR Advisory
+This static signal confirms the deployed site artifact and intentionally reports:
 
----
+- static GitHub Pages runtime
+- no backend
+- no database
+- local-browser editor only
+- browser-local content overrides
 
-*Built with HTML, CSS & JavaScript — hosted on GitHub Pages*
+It is not an application dependency health endpoint.
+
+## Content governance
+
+Cloud architecture, compliance and TCO pages are advisory/reference material. Regulatory requirements, cloud pricing and provider guidance can change; users should verify time-sensitive claims against current authoritative sources before using them for formal decisions.
+
+## Architecture
+
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
