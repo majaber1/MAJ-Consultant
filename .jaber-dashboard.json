@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "slug": "maj-consultant",
+  "product": "MAJ Consultant",
+  "canonicalRepo": "majaber1/MAJ-Consultant",
+  "branch": "main",
+  "productionUrl": "https://majaber1.github.io/MAJ-Consultant/",
+  "healthUrls": ["https://majaber1.github.io/MAJ-Consultant/health.json"],
+  "readmePath": "README.md",
+  "architecturePath": "docs/ARCHITECTURE.md",
+  "sourcePolicy": {
+    "code": "github-main",
+    "runtime": "http-static-health",
+    "documentation": "repository"
+  },
+  "readinessHints": {
+    "runtime": "static",
+    "backend": "not-required",
+    "database": "not-required",
+    "admin": "local-browser-editor-only"
+  }
+}
