@@ -1,0 +1,10 @@
+{
+  "status": "ready",
+  "service": "maj-consultant",
+  "runtime": "static-github-pages",
+  "backend": "not-present",
+  "database": "not-required",
+  "admin": "local-browser-editor-only",
+  "contentPersistence": "localStorage-per-browser",
+  "verifiedAt": "2026-08-26"
+}
