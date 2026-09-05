@@ -33,6 +33,7 @@ Therefore Jaber Dashboard must not count the Admin page as production authentica
 - cloud best-practices guide
 - Saudi cloud/compliance reference/checklist
 - TCO calculator
+- freelance service packs for Fiverr, Khamsat, and Freelancer
 - professional credentials and supporting documents
 
 ## Health model

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freelance Services — Fiverr · خمسات · Freelancer | Mohammed Jaber</title>
+<link rel="stylesheet" href="site.css">
+<style>
+  .lang-toggle {
+    display: flex; gap: 8px; justify-content: center; margin-bottom: 28px; flex-wrap: wrap;
+  }
+  .lang-btn, .plat-btn {
+    font-size: 0.68rem; padding: 7px 16px; border-radius: 20px; font-weight: 700;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .lang-btn.active, .plat-btn.active,
+  .lang-btn:hover, .plat-btn:hover {
+    background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.35); color: var(--accent);
+  }
+
+  .platform-tabs {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px;
+  }
+  .plat-btn .plat-ico { margin-inline-end: 6px; }
+
+  .panel { display: none; animation: fadeUp 0.35s ease both; }
+  .panel.active { display: block; }
+
+  .gig-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+  .gig-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .gig-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border2);
+    background: var(--surface2);
+    box-shadow: var(--shadow);
+  }
+  .gig-card .bar {
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .gig-card .bar.fiverr { background: linear-gradient(90deg, #1dbf73, #19a463); }
+  .gig-card .bar.khamsat { background: linear-gradient(90deg, #2db8a0, #1a9b85); }
+  .gig-card .bar.freelancer { background: linear-gradient(90deg, #29b2fe, #098ddc); }
+
+  .gig-platform {
+    font-size: 0.58rem; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+  }
+  .gig-title {
+    font-size: 1rem; font-weight: 800; line-height: 1.35; margin-bottom: 10px;
+  }
+  .gig-desc {
+    font-size: 0.78rem; color: var(--muted); line-height: 1.7; margin-bottom: 16px;
+  }
+  .pkg-row {
+    display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 16px;
+  }
+  .pkg {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+  }
+  .pkg-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 6px; gap: 8px; flex-wrap: wrap;
+  }
+  .pkg-name { font-size: 0.72rem; font-weight: 800; color: var(--accent3); }
+  .pkg-price { font-size: 0.78rem; font-weight: 800; color: var(--green); }
+  .pkg ul {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .pkg li {
+    font-size: 0.68rem; color: var(--muted); line-height: 1.55;
+    padding-inline-start: 14px; position: relative; margin-bottom: 3px;
+  }
+  .pkg li::before {
+    content: '✓'; position: absolute; inset-inline-start: 0; color: var(--green); font-size: 0.62rem;
+  }
+
+  .copy-block {
+    background: rgba(0,0,0,0.35);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-top: 12px;
+  }
+  .copy-label {
+    font-size: 0.58rem; font-weight: 800; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .copy-text {
+    font-size: 0.7rem; color: #cbd5e1; line-height: 1.65; white-space: pre-wrap;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .copy-btn {
+    font-size: 0.58rem; padding: 4px 10px; border-radius: 6px; font-weight: 700;
+    background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.35);
+    color: var(--accent); cursor: pointer;
+  }
+  .copy-btn:hover { background: rgba(99,102,241,0.28); }
+  .copy-btn.done { color: var(--green); border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.12); }
+
+  .howto {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    margin-bottom: 40px;
+  }
+  .howto h3 {
+    font-size: 1rem; font-weight: 800; margin-bottom: 14px;
+  }
+  .howto ol {
+    padding-inline-start: 22px; color: var(--muted); font-size: 0.82rem; line-height: 1.85;
+  }
+  .howto a { color: var(--accent3); text-decoration: underline; }
+
+  .note {
+    font-size: 0.72rem; color: var(--muted); line-height: 1.7;
+    border: 1px dashed var(--border2); border-radius: var(--radius-sm);
+    padding: 14px 16px; margin-top: 20px;
+  }
+
+  [dir="ltr"] .pkg li { padding-left: 14px; padding-right: 0; }
+  [dir="ltr"] .pkg li::before { left: 0; right: auto; }
+  [dir="rtl"] .pkg li { padding-right: 14px; padding-left: 0; }
+  [dir="rtl"] .pkg li::before { right: 0; left: auto; }
+
+  @media (max-width: 640px) {
+    .gig-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="topbar-mount"></div>
+
+<div class="page-hero" style="padding-bottom:48px;">
+  <div class="hero-eyebrow" data-i18n="eyebrow">خدمات فريلانس جاهزة للنشر</div>
+  <h1 class="hero-title">Fiverr · <span>خمسات</span> · Freelancer</h1>
+  <p class="hero-subtitle" data-i18n="subtitle">باقات ووصف خدمات مبنية على خبرة Mohammed Jaber في AWS والاستشارات السحابية والامتثال السعودي — جاهزة للنسخ والنشر على المنصات.</p>
+  <div class="chip-row">
+    <span class="chip chip-green">20+ Years IT</span>
+    <span class="chip chip-gold">AWS Cloud</span>
+    <span class="chip chip-blue">NCA · PDPL</span>
+    <span class="chip chip-purple">Vision 2030</span>
+    <span class="chip chip-default">Riyadh, KSA</span>
+  </div>
+</div>
+
+<div class="site-section" style="padding-top:0;">
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="ar" onclick="setLang('ar')">العربية</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
+  </div>
+
+  <div class="platform-tabs">
+    <button class="plat-btn active" data-plat="fiverr" onclick="showPlat('fiverr')"><span class="plat-ico">🟢</span>Fiverr</button>
+    <button class="plat-btn" data-plat="khamsat" onclick="showPlat('khamsat')"><span class="plat-ico">🟦</span>خمسات</button>
+    <button class="plat-btn" data-plat="freelancer" onclick="showPlat('freelancer')"><span class="plat-ico">🔵</span>Freelancer</button>
+  </div>
+
+  <!-- FIVERR -->
+  <div class="panel active" id="panel-fiverr">
+    <div class="section-eye">Fiverr Gigs</div>
+    <h2 class="section-head" data-i18n="fiverr_head">باقات Fiverr جاهزة</h2>
+    <p class="section-sub" data-i18n="fiverr_sub">انسخ العنوان والوصف والباقات وانشرها كـ Gigs على Fiverr. الأسعار إرشادية — عدّلها حسب السوق.</p>
+
+    <div class="gig-grid" id="fiverr-gigs"></div>
+
+    <div class="howto">
+      <h3 data-i18n="howto_fiverr_title">كيف تنشر على Fiverr؟</h3>
+      <ol>
+        <li data-i18n="howto_fiverr_1">أنشئ حساب بائع على <a href="https://www.fiverr.com/" target="_blank" rel="noopener">fiverr.com</a></li>
+        <li data-i18n="howto_fiverr_2">اختر فئة: Programming & Tech → Cloud Computing أو Consulting</li>
+        <li data-i18n="howto_fiverr_3">الصق العنوان والوصف والباقات من البطاقات أعلاه</li>
+        <li data-i18n="howto_fiverr_4">أرفق رابط البورتفوليو: https://majaber1.github.io/MAJ-Consultant/</li>
+        <li data-i18n="howto_fiverr_5">ارفع صور الشهادات والـ PDFs من الريبو كمعرض أعمال</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- KHAMSAT -->
+  <div class="panel" id="panel-khamsat">
+    <div class="section-eye">خدمات خمسات</div>
+    <h2 class="section-head" data-i18n="khamsat_head">خدمات جاهزة لخمسات</h2>
+    <p class="section-sub" data-i18n="khamsat_sub">نصوص عربية جاهزة لخدمات خمسات (25 ر.س فأكثر). ركّز على القيمة والنتيجة للعميل.</p>
+
+    <div class="gig-grid" id="khamsat-gigs"></div>
+
+    <div class="howto">
+      <h3 data-i18n="howto_khamsat_title">كيف تنشر على خمسات؟</h3>
+      <ol>
+        <li data-i18n="howto_khamsat_1">سجّل كبائع على <a href="https://khamsat.com/" target="_blank" rel="noopener">khamsat.com</a></li>
+        <li data-i18n="howto_khamsat_2">اختر القسم: أعمال · استشارات تقنية أو برمجة وتطوير</li>
+        <li data-i18n="howto_khamsat_3">انسخ العنوان والوصف العربي من البطاقات</li>
+        <li data-i18n="howto_khamsat_4">أضف رابط الموقع وأمثلة من أدواتك (TCO · Compliance)</li>
+        <li data-i18n="howto_khamsat_5">سعّر الخدمة بما يناسب السوق السعودي/الخليجي</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- FREELANCER -->
+  <div class="panel" id="panel-freelancer">
+    <div class="section-eye">Freelancer.com</div>
+    <h2 class="section-head" data-i18n="freelancer_head">عروض Freelancer الجاهزة</h2>
+    <p class="section-sub" data-i18n="freelancer_sub">استخدم هذه النصوص كـ Project proposals أو Contests responses أو Profile services.</p>
+
+    <div class="gig-grid" id="freelancer-gigs"></div>
+
+    <div class="howto">
+      <h3 data-i18n="howto_freelancer_title">كيف تستخدمها على Freelancer؟</h3>
+      <ol>
+        <li data-i18n="howto_freelancer_1">حدّث ملفك على <a href="https://www.freelancer.com/" target="_blank" rel="noopener">freelancer.com</a> بمهارات AWS و Cloud Consulting</li>
+        <li data-i18n="howto_freelancer_2">أضف الخدمات كـ Portfolio items مع رابط الموقع</li>
+        <li data-i18n="howto_freelancer_3">عند التقديم على مشروع، الصق الـ Proposal المناسب وعدّل الأرقام</li>
+        <li data-i18n="howto_freelancer_4">أرفق نتائج أدواتك: TCO calculator و NCA checklist كدليل خبرة</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="note" data-i18n="disclaimer">
+    ملاحظة: هذه الصفحة جزء من موقعك الثابت على GitHub Pages. لا تنشئ حسابات تلقائيًا على المنصات — انسخ المحتوى وانشره يدويًا. الأسعار إرشادية وليست التزامًا تعاقديًا.
+  </div>
+</div>
+
+<div class="site-footer" id="footer-mount"></div>
+
+<script src="site-config.js"></script>
+<script>
+const I18N = {
+  ar: {
+    eyebrow: 'خدمات فريلانس جاهزة للنشر',
+    subtitle: 'باقات ووصف خدمات مبنية على خبرة Mohammed Jaber في AWS والاستشارات السحابية والامتثال السعودي — جاهزة للنسخ والنشر على المنصات.',
+    fiverr_head: 'باقات Fiverr جاهزة',
+    fiverr_sub: 'انسخ العنوان والوصف والباقات وانشرها كـ Gigs على Fiverr. الأسعار إرشادية — عدّلها حسب السوق.',
+    khamsat_head: 'خدمات جاهزة لخمسات',
+    khamsat_sub: 'نصوص عربية جاهزة لخدمات خمسات. ركّز على القيمة والنتيجة للعميل.',
+    freelancer_head: 'عروض Freelancer الجاهزة',
+    freelancer_sub: 'استخدم هذه النصوص كـ Project proposals أو Contests responses أو Profile services.',
+    howto_fiverr_title: 'كيف تنشر على Fiverr؟',
+    howto_fiverr_1: 'أنشئ حساب بائع على fiverr.com',
+    howto_fiverr_2: 'اختر فئة: Programming & Tech → Cloud Computing أو Consulting',
+    howto_fiverr_3: 'الصق العنوان والوصف والباقات من البطاقات أعلاه',
+    howto_fiverr_4: 'أرفق رابط البورتفوليو: https://majaber1.github.io/MAJ-Consultant/',
+    howto_fiverr_5: 'ارفع صور الشهادات والـ PDFs من الريبو كمعرض أعمال',
+    howto_khamsat_title: 'كيف تنشر على خمسات؟',
+    howto_khamsat_1: 'سجّل كبائع على khamsat.com',
+    howto_khamsat_2: 'اختر القسم: أعمال · استشارات تقنية أو برمجة وتطوير',
+    howto_khamsat_3: 'انسخ العنوان والوصف العربي من البطاقات',
+    howto_khamsat_4: 'أضف رابط الموقع وأمثلة من أدواتك (TCO · Compliance)',
+    howto_khamsat_5: 'سعّر الخدمة بما يناسب السوق السعودي/الخليجي',
+    howto_freelancer_title: 'كيف تستخدمها على Freelancer؟',
+    howto_freelancer_1: 'حدّث ملفك على freelancer.com بمهارات AWS و Cloud Consulting',
+    howto_freelancer_2: 'أضف الخدمات كـ Portfolio items مع رابط الموقع',
+    howto_freelancer_3: 'عند التقديم على مشروع، الصق الـ Proposal المناسب وعدّل الأرقام',
+    howto_freelancer_4: 'أرفق نتائج أدواتك: TCO calculator و NCA checklist كدليل خبرة',
+    disclaimer: 'ملاحظة: هذه الصفحة جزء من موقعك الثابت على GitHub Pages. لا تنشئ حسابات تلقائيًا على المنصات — انسخ المحتوى وانشره يدويًا. الأسعار إرشادية وليست التزامًا تعاقديًا.',
+    copy: 'نسخ',
+    copied: 'تم النسخ',
+    title_lbl: 'العنوان',
+    desc_lbl: 'الوصف',
+    basic: 'أساسي',
+    standard: 'قياسي',
+    premium: 'مميز'
+  },
+  en: {
+    eyebrow: 'Ready-to-post freelance services',
+    subtitle: 'Gig packages and copy built from Mohammed Jaber’s AWS, cloud advisory, and Saudi compliance expertise — ready to paste on Fiverr, Khamsat, and Freelancer.',
+    fiverr_head: 'Ready Fiverr gigs',
+    fiverr_sub: 'Copy titles, descriptions, and packages into Fiverr gigs. Prices are starting suggestions — tune to market.',
+    khamsat_head: 'Ready Khamsat services',
+    khamsat_sub: 'Arabic-ready service copy for Khamsat. Lead with client outcomes.',
+    freelancer_head: 'Ready Freelancer proposals',
+    freelancer_sub: 'Use as project proposals, contest responses, or profile service blurbs.',
+    howto_fiverr_title: 'How to publish on Fiverr',
+    howto_fiverr_1: 'Create a seller account on fiverr.com',
+    howto_fiverr_2: 'Pick category: Programming & Tech → Cloud Computing or Consulting',
+    howto_fiverr_3: 'Paste title, description, and packages from the cards above',
+    howto_fiverr_4: 'Attach portfolio: https://majaber1.github.io/MAJ-Consultant/',
+    howto_fiverr_5: 'Upload certificates and PDFs from the repo as gallery proof',
+    howto_khamsat_title: 'How to publish on Khamsat',
+    howto_khamsat_1: 'Register as a seller on khamsat.com',
+    howto_khamsat_2: 'Choose Business / Tech Consulting or Development',
+    howto_khamsat_3: 'Paste the Arabic title and description from the cards',
+    howto_khamsat_4: 'Add your site link and tool demos (TCO · Compliance)',
+    howto_khamsat_5: 'Price for Saudi / GCC market expectations',
+    howto_freelancer_title: 'How to use on Freelancer',
+    howto_freelancer_1: 'Update your freelancer.com profile with AWS & Cloud Consulting skills',
+    howto_freelancer_2: 'Add services as portfolio items with the site URL',
+    howto_freelancer_3: 'When bidding, paste the matching proposal and adjust numbers',
+    howto_freelancer_4: 'Attach TCO calculator and NCA checklist outputs as proof',
+    disclaimer: 'Note: This page is part of your static GitHub Pages site. It does not create platform accounts — copy and publish manually. Prices are illustrative, not contractual.',
+    copy: 'Copy',
+    copied: 'Copied',
+    title_lbl: 'Title',
+    desc_lbl: 'Description',
+    basic: 'Basic',
+    standard: 'Standard',
+    premium: 'Premium'
+  }
+};
+
+const GIGS = {
+  fiverr: [
+    {
+      id: 'aws-advisory',
+      bar: 'fiverr',
+      platform: 'Fiverr · Cloud Consulting',
+      title_ar: 'استشارة معمارية سحابية AWS لمشروعك',
+      title_en: 'I will advise on AWS cloud architecture for your project',
+      desc_ar: 'أقدّم استشارة معمارية عملية على AWS: تقييم الوضع الحالي، اقتراح تصميم Well-Architected، وخارطة طريق تنفيذ قصيرة. مناسب للشركات الناشئة والمؤسسات في الخليج.',
+      desc_en: 'Practical AWS architecture advisory: current-state review, Well-Architected design recommendations, and a short execution roadmap. Built for startups and enterprises in the GCC.',
+      packages: [
+        { nameKey: 'basic', price: 'from $80', items_ar: ['جلسة 60 دقيقة', 'ملخص توصيات مكتوب', 'أسئلة متابعة لـ 3 أيام'], items_en: ['60-min session', 'Written recommendation summary', '3 days of follow-up Q&A'] },
+        { nameKey: 'standard', price: 'from $220', items_ar: ['جلسة 2 ساعة', 'مخطط معماري عالي المستوى', 'تقرير مخاطر مختصر', 'متابعة أسبوع'], items_en: ['2-hour workshop', 'High-level architecture diagram', 'Short risk report', '1-week follow-up'] },
+        { nameKey: 'premium', price: 'from $550', items_ar: ['مراجعة معمارية كاملة', 'محاذاة مع 6 ركائز WAF', 'خارطة طريق 30/60/90', 'جلسة تقديم تنفيذية'], items_en: ['Full architecture review', 'Alignment to 6 WAF pillars', '30/60/90 roadmap', 'Executive briefing call'] }
+      ]
+    },
+    {
+      id: 'tco',
+      bar: 'fiverr',
+      platform: 'Fiverr · FinOps / TCO',
+      title_ar: 'تحليل TCO ومقارنة تكلفة On-Prem مقابل AWS',
+      title_en: 'I will build an AWS vs on-prem TCO and ROI brief',
+      desc_ar: 'أحسب التكلفة الإجمالية للملكية وأجهز ملخصًا تنفيذيًا بالريال أو الدولار — مناسب لعروض الإدارات وصنّاع القرار.',
+      desc_en: 'I build Total Cost of Ownership models and an executive-ready ROI brief in SAR or USD — ideal for leadership decks.',
+      packages: [
+        { nameKey: 'basic', price: 'from $60', items_ar: ['نموذج TCO مبسط', 'مقارنة سيناريوهين', 'ملخص صفحة واحدة'], items_en: ['Simple TCO model', '2-scenario comparison', '1-page summary'] },
+        { nameKey: 'standard', price: 'from $180', items_ar: ['نموذج تفصيلي', 'تحليل حساسية', 'فترة الاسترداد', 'شرائح تنفيذية'], items_en: ['Detailed model', 'Sensitivity analysis', 'Payback period', 'Executive slides'] },
+        { nameKey: 'premium', price: 'from $400', items_ar: ['نموذج متعدد السيناريوهات', 'توصيات FinOps', 'جلسة شرح للإدارة', 'ملف Excel قابل للتعديل'], items_en: ['Multi-scenario model', 'FinOps recommendations', 'Leadership walkthrough', 'Editable Excel file'] }
+      ]
+    },
+    {
+      id: 'compliance',
+      bar: 'fiverr',
+      platform: 'Fiverr · Saudi Compliance',
+      title_ar: 'مراجعة امتثال سحابي NCA و PDPL على AWS',
+      title_en: 'I will map AWS controls to NCA CCC and PDPL requirements',
+      desc_ar: 'أربط ضوابط AWS بمتطلبات NCA CCC و PDPL و NDMO، مع قائمة فجوات ودرجة امتثال أولية — مفيد للجهات السعودية.',
+      desc_en: 'I map AWS controls to NCA CCC, PDPL, and NDMO expectations with a gap list and initial compliance score — tailored for Saudi entities.',
+      packages: [
+        { nameKey: 'basic', price: 'from $90', items_ar: ['قائمة تحقق مركّزة', 'درجة امتثال أولية', 'أهم 10 فجوات'], items_en: ['Focused checklist', 'Initial score', 'Top 10 gaps'] },
+        { nameKey: 'standard', price: 'from $250', items_ar: ['مسح ضوابط موسّع', 'خطة معالجة مرتبة', 'توصيات AWS'], items_en: ['Expanded control sweep', 'Prioritized remediation plan', 'AWS recommendations'] },
+        { nameKey: 'premium', price: 'from $600', items_ar: ['تقرير امتثال كامل', 'مصفوفة ضوابط', 'جلسة ورشة عمل', 'مسودة سياسة مختصرة'], items_en: ['Full compliance report', 'Control matrix', 'Workshop session', 'Short policy draft'] }
+      ]
+    }
+  ],
+  khamsat: [
+    {
+      id: 'k-advisory',
+      bar: 'khamsat',
+      platform: 'خمسات · استشارات تقنية',
+      title_ar: 'أقدم استشارة احترافية لتصميم بنية AWS السحابية',
+      title_en: 'Professional AWS architecture consulting service',
+      desc_ar: 'خدمة استشارية لتصميم أو مراجعة بنية AWS: فهم احتياجك، اقتراح تصميم عملي، وتوضيح الخطوات التالية. مناسبة للشركات والمؤسسات في السعودية والخليج، مع خبرة في بيئات الجامعات والجهات الحكومية.',
+      desc_en: 'Consulting service to design or review AWS architecture with practical next steps. Fit for Saudi/GCC organizations.',
+      packages: [
+        { nameKey: 'basic', price: 'من 150 ر.س', items_ar: ['استشارة كتابية مفصّلة', 'توصيات واضحة', 'تسليم خلال 3 أيام'], items_en: ['Detailed written advice', 'Clear recommendations', '3-day delivery'] },
+        { nameKey: 'standard', price: 'من 400 ر.س', items_ar: ['مخطط معماري', 'قائمة قرارات تقنية', 'جلسة صوتية 45 دقيقة'], items_en: ['Architecture sketch', 'Decision list', '45-min voice call'] },
+        { nameKey: 'premium', price: 'من 900 ر.س', items_ar: ['مراجعة شاملة', 'خارطة طريق', 'عرض تنفيذي', 'متابعة أسبوعين'], items_en: ['Full review', 'Roadmap', 'Executive brief', '2-week follow-up'] }
+      ]
+    },
+    {
+      id: 'k-tco',
+      bar: 'khamsat',
+      platform: 'خمسات · تحليل تكاليف',
+      title_ar: 'أحسب لك تكلفة الانتقال للسحابة TCO مقابل السيرفرات الحالية',
+      title_en: 'Cloud vs on-prem TCO calculation service',
+      desc_ar: 'أحسب التكلفة الإجمالية للملكية وأقارن بيئة On-Prem مع AWS، مع ملخص تنفيذي بالريال السعودي يساعد الإدارة على اتخاذ القرار.',
+      desc_en: 'TCO comparison of on-prem vs AWS with an executive summary in SAR.',
+      packages: [
+        { nameKey: 'basic', price: 'من 100 ر.س', items_ar: ['حساب مبسط', 'ملخص نتائج', 'توصية عامة'], items_en: ['Simple calc', 'Results summary', 'General recommendation'] },
+        { nameKey: 'standard', price: 'من 350 ر.س', items_ar: ['نموذج مفصّل', 'فترة الاسترداد', 'شرائح عرض'], items_en: ['Detailed model', 'Payback', 'Presentation slides'] },
+        { nameKey: 'premium', price: 'من 750 ر.س', items_ar: ['سيناريوهات متعددة', 'توصيات توفير', 'جلسة شرح'], items_en: ['Multi-scenario', 'Savings tips', 'Walkthrough call'] }
+      ]
+    },
+    {
+      id: 'k-nca',
+      bar: 'khamsat',
+      platform: 'خمسات · امتثال سعودي',
+      title_ar: 'أراجع جاهزية سحابتك لضوابط NCA و PDPL',
+      title_en: 'NCA and PDPL cloud readiness review',
+      desc_ar: 'أراجع عناصر الامتثال السحابي المرتبطة بـ NCA CCC و PDPL، وأسلّم قائمة فجوات وأولويات معالجة بلغة واضحة لفريق التقنية والإدارة.',
+      desc_en: 'Cloud readiness review against NCA CCC and PDPL with a clear gap and priority list.',
+      packages: [
+        { nameKey: 'basic', price: 'من 200 ر.س', items_ar: ['قائمة تحقق', 'أهم الفجوات', 'درجة مبدئية'], items_en: ['Checklist', 'Key gaps', 'Initial score'] },
+        { nameKey: 'standard', price: 'من 500 ر.س', items_ar: ['تقرير فجوات', 'خطة معالجة', 'توصيات AWS'], items_en: ['Gap report', 'Remediation plan', 'AWS tips'] },
+        { nameKey: 'premium', price: 'من 1200 ر.س', items_ar: ['تقرير كامل', 'مصفوفة ضوابط', 'ورشة عمل'], items_en: ['Full report', 'Control matrix', 'Workshop'] }
+      ]
+    }
+  ],
+  freelancer: [
+    {
+      id: 'fl-migration',
+      bar: 'freelancer',
+      platform: 'Freelancer · Proposal',
+      title_ar: 'عرض: تخطيط هجرة مركز بيانات إلى AWS',
+      title_en: 'Proposal: Data center to AWS migration planning',
+      desc_ar: 'أقدّم خطة هجرة مرحلية: جرد أحمال، تصنيف 6R، تقدير مخاطر، وجدول زمني واقعي — مبنية على خبرة استشارية في بيئات جامعية ومؤسساتية.',
+      desc_en: 'I deliver a phased migration plan: workload inventory, 6R classification, risk estimate, and a realistic timeline — based on university and enterprise advisory work.',
+      packages: [
+        { nameKey: 'basic', price: 'fixed / hourly', items_ar: ['خطة عالية المستوى', 'قائمة أحمال أولية', 'تقدير مدة'], items_en: ['High-level plan', 'Initial workload list', 'Duration estimate'] },
+        { nameKey: 'standard', price: 'milestone-based', items_ar: ['تصنيف 6R', 'مخاطر وامتثال', 'جدول 30/60/90'], items_en: ['6R mapping', 'Risk & compliance', '30/60/90 schedule'] },
+        { nameKey: 'premium', price: 'project retainer', items_ar: ['خطة كاملة', 'حوكمة سحابية', 'جلسات قيادة', 'دعم تنفيذ أولي'], items_en: ['Full plan', 'Cloud governance', 'Leadership sessions', 'Early execution support'] }
+      ]
+    },
+    {
+      id: 'fl-gov',
+      bar: 'freelancer',
+      platform: 'Freelancer · Proposal',
+      title_ar: 'عرض: إطار حوكمة سحابية و FinOps',
+      title_en: 'Proposal: Cloud governance and FinOps framework',
+      desc_ar: 'أصمم إطار حوكمة عملي: حسابات متعددة، سياسات وسم، ضوابط تكلفة، وأدوار تشغيل — مناسب لمؤسسات تبدأ رحلة اعتماد السحابة.',
+      desc_en: 'I design a practical governance framework: multi-account layout, tagging policy, cost controls, and operating roles — for organizations starting cloud adoption.',
+      packages: [
+        { nameKey: 'basic', price: 'fixed', items_ar: ['وثيقة مبادئ حوكمة', 'اقتراح هيكل حسابات'], items_en: ['Governance principles doc', 'Account structure proposal'] },
+        { nameKey: 'standard', price: 'milestone', items_ar: ['سياسات وسم وتكلفة', 'مصفوفة أدوار', 'قائمة ضوابط'], items_en: ['Tagging & cost policies', 'RACI matrix', 'Control checklist'] },
+        { nameKey: 'premium', price: 'retainer', items_ar: ['إطار كامل', 'تشغيل CCoE مصغّر', 'مراجعات شهرية'], items_en: ['Full framework', 'Mini CCoE operating model', 'Monthly reviews'] }
+      ]
+    },
+    {
+      id: 'fl-war',
+      bar: 'freelancer',
+      platform: 'Freelancer · Proposal',
+      title_ar: 'عرض: مراجعة Well-Architected لبيئة AWS',
+      title_en: 'Proposal: AWS Well-Architected Review engagement',
+      desc_ar: 'أراجع بيئتك عبر ركائز WAF وأسلّم نتائجًا قابلة للتنفيذ مع خريطة حرارة للمخاطر وخارطة تحسين.',
+      desc_en: 'I review your environment across WAF pillars and deliver actionable findings with a risk heat map and improvement roadmap.',
+      packages: [
+        { nameKey: 'basic', price: 'fixed', items_ar: ['مسح سريع لركيزتين', 'ملخص مخاطر'], items_en: ['Quick scan of 2 pillars', 'Risk summary'] },
+        { nameKey: 'standard', price: 'milestone', items_ar: ['مراجعة 6 ركائز', 'قائمة تحسينات', 'جلسة نتائج'], items_en: ['6-pillar review', 'Improvement backlog', 'Findings call'] },
+        { nameKey: 'premium', price: 'project', items_ar: ['تقرير تنفيذي', 'خريطة حرارة', 'خطة 90 يومًا', 'متابعة تنفيذ'], items_en: ['Executive report', 'Heat map', '90-day plan', 'Remediation follow-up'] }
+      ]
+    }
+  ]
+};
+
+let lang = 'ar';
+let plat = 'fiverr';
+
+document.getElementById('topbar-mount').innerHTML = `
+  <nav class="site-topbar">
+    <div class="topbar-brand">☁️ MD Cloud</div>
+    <div class="topbar-nav">
+      <a href="index.html">Home</a>
+      <a href="aws-roadmap.html">AWS Roadmap</a>
+      <a href="cloud-advisory.html">Cloud Advisory</a>
+      <a href="cloud-best-practices.html">Best Practices</a>
+      <a href="nca-pdpl-compliance.html">NCA &amp; PDPL</a>
+      <a href="tco-calculator.html">TCO</a>
+      <a href="freelance-services.html" class="active">Freelance</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </nav>`;
+
+document.getElementById('footer-mount').innerHTML = `
+  <div>© ${new Date().getFullYear()} Mohammed Jaber · Cloud Advisory · Riyadh</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="https://majaber1.github.io/MAJ-Consultant/" target="_blank" rel="noopener">Live Site</a>
+    <a href="index.html#contact">Contact</a>
+  </div>`;
+
+function t(key) { return (I18N[lang] && I18N[lang][key]) || key; }
+
+function applyI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (I18N[lang][key]) el.textContent = I18N[lang][key];
+  });
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  renderGigs();
+}
+
+function setLang(next) {
+  lang = next;
+  applyI18n();
+}
+
+function showPlat(next) {
+  plat = next;
+  document.querySelectorAll('.plat-btn').forEach(b => b.classList.toggle('active', b.dataset.plat === next));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + next));
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function copyFrom(btn) {
+  const block = btn.closest('.copy-block');
+  const text = block.querySelector('.copy-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = t('copied');
+    btn.classList.add('done');
+    setTimeout(() => { btn.textContent = t('copy'); btn.classList.remove('done'); }, 1600);
+  }).catch(() => {
+    const range = document.createRange();
+    range.selectNodeContents(block.querySelector('.copy-text'));
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+}
+
+function renderGigCard(gig) {
+  const title = lang === 'ar' ? gig.title_ar : gig.title_en;
+  const desc = lang === 'ar' ? gig.desc_ar : gig.desc_en;
+  const pkgs = gig.packages.map(p => {
+    const items = (lang === 'ar' ? p.items_ar : p.items_en).map(i => `<li>${esc(i)}</li>`).join('');
+    return `<div class="pkg">
+      <div class="pkg-head">
+        <span class="pkg-name">${esc(t(p.nameKey))}</span>
+        <span class="pkg-price">${esc(p.price)}</span>
+      </div>
+      <ul>${items}</ul>
+    </div>`;
+  }).join('');
+
+  const fullCopy = `${title}\n\n${desc}\n\n` + gig.packages.map(p => {
+    const items = (lang === 'ar' ? p.items_ar : p.items_en).map(i => `- ${i}`).join('\n');
+    return `${t(p.nameKey)} (${p.price})\n${items}`;
+  }).join('\n\n');
+
+  return `<article class="gig-card">
+    <div class="bar ${gig.bar}"></div>
+    <div class="gig-platform">${esc(gig.platform)}</div>
+    <h3 class="gig-title">${esc(title)}</h3>
+    <p class="gig-desc">${esc(desc)}</p>
+    <div class="pkg-row">${pkgs}</div>
+    <div class="copy-block">
+      <div class="copy-label">
+        <span>${esc(t('title_lbl'))} + ${esc(t('desc_lbl'))}</span>
+        <button type="button" class="copy-btn" onclick="copyFrom(this)">${esc(t('copy'))}</button>
+      </div>
+      <div class="copy-text">${esc(fullCopy)}</div>
+    </div>
+  </article>`;
+}
+
+function renderGigs() {
+  ['fiverr', 'khamsat', 'freelancer'].forEach(key => {
+    const mount = document.getElementById(key + '-gigs');
+    if (mount) mount.innerHTML = GIGS[key].map(renderGigCard).join('');
+  });
+}
+
+applyI18n();
+</script>
+</body>
+</html>

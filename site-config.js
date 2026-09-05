@@ -123,6 +123,20 @@ window.SITE_CONFIG = {
       order:  5
     },
     {
+      id:     "freelance-services",
+      title:  "Freelance Services — Fiverr · خمسات · Freelancer",
+      desc:   "Ready-to-copy gig packages and bilingual service descriptions for Fiverr, Khamsat, and Freelancer — built from AWS advisory, TCO, and Saudi compliance offerings.",
+      icon:   "🧾",
+      color:  "teal",
+      status: "live",
+      url:    "freelance-services.html",
+      type:   "Freelance Pack",
+      tags:   ["Fiverr", "Khamsat", "Freelancer", "Bilingual"],
+      isNew:  true,
+      topic:  "Tools",
+      order:  5.5
+    },
+    {
       id:     "war-template",
       title:  "Well-Architected Review Template",
       desc:   "A structured WAR executive deliverable template — ready to customize and present to clients. Covers all 6 pillars with risk heat map, findings, and improvement roadmap.",
